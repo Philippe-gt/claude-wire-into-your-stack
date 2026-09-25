@@ -1,5 +1,7 @@
 {
-  "enabledMcpjsonServers": ["docs"],
+  "enabledMcpjsonServers": [
+    "docs"
+  ],
   "permissions": {
     "allow": [
       "mcp__docs__read_text_file",
@@ -12,6 +14,20 @@
       "mcp__docs__edit_file",
       "mcp__docs__create_directory",
       "mcp__docs__move_file"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/lint-on-edit.js",
+            "timeout": 60
+          }
+        ]
+      }
     ]
   }
 }
